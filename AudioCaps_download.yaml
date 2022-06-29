@@ -1,0 +1,43 @@
+# =================================
+# settings of AudioCaps downloading process
+# =================================
+workflow:
+  audio_download: Yes
+  resampling: Yes
+  make_captions_csv: Yes
+
+# -----------------------------------
+settings:
+  root_dir: 'xxx'
+  dirs:
+    meta_dir: 'meta_data'
+    audio_dir: 'AudioCaps_audio'
+    exceptional_audio_dir: 'exceptional_files'
+    error_message_path: 'error_message.csv'
+    cookie_path: 'cookies.txt'
+    log_path: download.log
+    captions_csv_dir: AudioCaps_csv_files
+  mode: 
+    - 'train'
+    - 'val'
+    - 'test'
+  proxy: True
+  restart: True
+# -----------------------------------
+params:
+  nprocess: 50 # Number of processes to be processed in parallel
+  resample:
+    sr: 44100
+    mono: True
+    subtype: "PCM_16" # refer to soundfile.write
+  ydl_opt:
+    proxy_key: 'xxx'
+    postprocessors:
+      key: 'FFmpegExtractAudio'
+      preferredcodec: 'mp3'
+      preferredquality: '192' # sound quality
+    formats: 'bestaudio/best'
+    seconds_to_cut: '10'
+    sr: '44100'
+    ignore_error: True
+# -----------------------------------
